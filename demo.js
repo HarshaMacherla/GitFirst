@@ -1,65 +1,55 @@
-// 1. Parent Element of the List Items
-var parentOfList = document.querySelector('.list-group-item');
-console.log(parentOfList.parentElement);
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
 
-// 2. Last Element Child
-var items = document.querySelector('.list-group');
-console.log(items.lastElementChild);
+// Form submit event
+form.addEventListener('submit', addItem);
 
-// 3. Last Child
-console.log(items.lastChild);
+// Delete event
+itemList.addEventListener('click', removeItem);
 
-// 4. Create Child
-var node = document.createElement('h1');
-var nodeText = document.createTextNode('Hello World');
-node.appendChild(nodeText);
-var parentNode = document.querySelector('.container');
-parentNode.appendChild(node);
+// Add item
+function addItem(e) {
+    e.preventDefault();
+    
+    // Get input value
+    var newItem = document.getElementById('item').value;
 
-// 5. First Element Child
-console.log(items.firstElementChild);
+    // Create new li element
+    var li = document.createElement('li');
+    li.className = 'list-group-item';
+    
+    // Add text node with input value
+    li.appendChild(document.createTextNode(newItem));
 
-// 6. First child
-console.log(items.firstChild);
+    // Create del buttom element
+    var deleteBtn = document.createElement('button');
+    
+    // Add classes to del button
+    deleteBtn.className = 'btn btn-danger btn-sm float-sm float-right delete';
 
-// 7. Next Sibling
-console.log(items.firstChild.nextSibling);
+    // Append text node
+    deleteBtn.appendChild(document.createTextNode('X'));
 
-// 8. Next Element Sibling
-console.log(items.firstElementChild.nextElementSibling);
+    // Append button to li
+    li.appendChild(deleteBtn);
 
-// 9. Previous Sibling
-var siblings = document.getElementsByClassName('list-group-item');
-console.log(siblings[1].previousSibling);
+    itemList.appendChild(li);
 
-// 10. Previous Element Sibling
-console.log(siblings[1].previousElementSibling);
+    // Adding Edit button
+    var editBtn = document.createElement('button');
+    var buttonText = document.createTextNode('Edit');
+    editBtn.appendChild(buttonText);
+    editBtn.className = 'btn btn-sm float-right';
+    li.appendChild(editBtn);
+    
+}
 
-// 11. Create Element
-var newElement = document.createElement('li');
-
-// 12. Set Attribute
-newElement.setAttribute('class', 'list-group-item');
-
-// 13. Create Text Node
-var newTextNode = document.createTextNode('Item 5');
-newElement.appendChild(newTextNode);
-
-// 14. Append Child
-items.appendChild(newElement);
-
-
-// 1. Now go ahead and add HEllo world before Item Lister
-var myContainer = document.querySelector('header .container');
-var item = document.getElementById('header-title');
-var newElement2 = document.createElement('h1');
-var newTextNode2 = document.createTextNode('HEllo world');
-newElement2.appendChild(newTextNode2);
-myContainer.insertBefore(newElement2, item);
-
-// 2. Now go ahead and HEllo world before Item 1
-var newNode = document.createElement('li');
-newNode.className = 'list-group-item';
-var newText = document.createTextNode('HEllo world');
-newNode.appendChild(newText);
-items.insertBefore(newNode, items.firstElementChild);
+// Remove Item
+function removeItem(e) {
+    if (e.target.classList.contains('delete')) {
+        if (confirm('Are you sure?')) {
+            var li = e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
+}
