@@ -1,6 +1,6 @@
-document.getElementById('header-title').style.border = 'solid 3px #000';
+var listItems = document.getElementsByClassName("list-group-item");
+listItems[2].style.backgroundColor = 'green';
 
-document.getElementById('addItems').style.color = 'green';
-
-document.getElementById('addItems').style.fontWeight = 'bold';
-
+for (let i = 0; i < listItems.length; i++) {
+    listItems[i].style.fontWeight = 'bold';
+}
